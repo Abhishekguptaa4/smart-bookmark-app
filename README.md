@@ -1,36 +1,270 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Bookmark Manager
 
-## Getting Started
+A secure and modern bookmark manager built using Next.js, Supabase, and Tailwind CSS.  
+Users can sign up and log in using Google OAuth and manage their personal bookmarks with real-time updates.
 
-First, run the development server:
+---
 
-```bash
+## Live Demo
+
+(After deployment, add your Vercel live URL here)
+
+Example:
+https://smart-bookmark-app.vercel.app
+
+---
+
+## GitHub Repository
+
+(Add your GitHub repository link here)
+
+Example:
+https://github.com/Abhishekguptaa4/smart-bookmark-app
+
+---
+
+## Features
+
+- Google OAuth authentication (Sign up and Login)
+- Add new bookmarks (Title and URL)
+- Edit bookmarks
+- Delete bookmarks with confirmation
+- Real-time bookmark updates without refreshing page
+- Bookmarks are private to each user
+- Professional and responsive UI
+- Secure backend using Supabase Row Level Security
+- Fully deployed on Vercel
+
+---
+
+## Tech Stack
+
+Frontend:
+- Next.js 16 (App Router)
+- Tailwind CSS
+- TypeScript
+
+Backend:
+- Supabase Authentication
+- Supabase PostgreSQL Database
+- Supabase Realtime
+
+Deployment:
+- Vercel
+
+---
+
+## Database Schema
+
+Table name: bookmarks
+
+Columns:
+
+- id (uuid, primary key)
+- user_id (uuid, references auth.users)
+- title (text)
+- url (text)
+- created_at (timestamp)
+- updated_at (timestamp)
+
+---
+
+## Security
+
+Row Level Security (RLS) is enabled.
+
+Policies ensure:
+
+- Users can only view their own bookmarks
+- Users can only insert their own bookmarks
+- Users can only update their own bookmarks
+- Users can only delete their own bookmarks
+
+This ensures full data privacy.
+
+---
+
+## Real-time Functionality
+
+Supabase realtime is enabled using publications.
+
+Whenever a bookmark is:
+
+- added
+- edited
+- deleted
+
+It updates instantly without page refresh.
+
+Even if opened in multiple tabs.
+
+---
+
+## Problems Faced and Solutions
+
+### Problem 1: Google login redirect loop
+
+Issue:
+After clicking login, it redirected back to login page.
+
+Cause:
+Auth callback route was missing.
+
+Solution:
+Created auth callback route:
+
+app/auth/callback/route.ts
+
+
+Handled session correctly using Supabase server client.
+
+---
+
+### Problem 2: Logout not working properly
+
+Issue:
+After logout, user was still logged in.
+
+Cause:
+Session was not refreshed.
+
+Solution:
+Used:
+
+await supabase.auth.signOut()
+router.refresh()
+
+
+This cleared session properly.
+
+---
+
+### Problem 3: Realtime updates not working
+
+Issue:
+Bookmarks only appeared after refresh.
+
+Cause:
+Supabase realtime was not enabled.
+
+Solution:
+
+Enabled realtime from Supabase dashboard:
+
+Database → Publications → supabase_realtime → enable bookmarks table
+
+
+And implemented realtime subscription in frontend.
+
+---
+
+### Problem 4: Edit bookmark not updating
+
+Issue:
+Bookmark edit UI worked but database did not update.
+
+Cause:
+Missing select().single() after update.
+
+Solution:
+
+.update({...})
+.eq("id", editing.id)
+.select()
+.single()
+
+
+This returned updated row and UI updated instantly.
+
+---
+
+### Problem 5: Delete confirmation and realtime delete
+
+Issue:
+Delete UI was not professional and realtime delete did not reflect instantly.
+
+Solution:
+
+- Created professional confirmation modal
+- Implemented realtime DELETE event listener
+- Updated state instantly
+
+---
+
+### Problem 6: UI was not professional
+
+Issue:
+UI looked very basic.
+
+Solution:
+
+Improved:
+
+- Professional navbar
+- Modern bookmark cards
+- Modal edit form
+- Delete confirmation modal
+- Hover effects
+- Responsive layout
+
+---
+
+## How to Run Locally
+
+Clone repository:
+
+git clone https://github.com/Abhishekguptaa4/smart-bookmark-app.git
+
+
+Go into project:
+
+cd smart-bookmark-app
+
+
+Install dependencies:
+
+npm install
+
+
+Create environment file:
+
+.env.local
+
+
+Add:
+
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+
+
+Run project:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Project is deployed using Vercel.
 
-## Deploy on Vercel
+Steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Push code to GitHub
+- Import repository in Vercel
+- Add environment variables
+- Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Author
+
+Abhishek Gupta
+
+B.Tech Student  
+Full Stack Developer  
