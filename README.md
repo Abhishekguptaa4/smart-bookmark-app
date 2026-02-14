@@ -6,19 +6,13 @@ Users can sign up and log in using Google OAuth and manage their personal bookma
 ---
 
 ## Live Demo
+https://smart-bookmark-194t9g70p-abhishek-guptas-projects-1f59b79c.vercel.app
 
-(After deployment, add your Vercel live URL here)
-
-Example:
-https://smart-bookmark-app.vercel.app
 
 ---
 
 ## GitHub Repository
 
-(Add your GitHub repository link here)
-
-Example:
 https://github.com/Abhishekguptaa4/smart-bookmark-app
 
 ---
