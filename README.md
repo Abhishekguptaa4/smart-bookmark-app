@@ -6,7 +6,7 @@ Users can sign up and log in using Google OAuth and manage their personal bookma
 ---
 
 ## Live Demo
-https://smart-bookmark-194t9g70p-abhishek-guptas-projects-1f59b79c.vercel.app
+https://smart-bookmark-62676sljj-abhishek-guptas-projects-1f59b79c.vercel.app/
 
 
 ---
